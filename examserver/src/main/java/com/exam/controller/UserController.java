@@ -42,9 +42,9 @@ public class UserController
 		return userService.createUser(user,userRole);
 	}
 
-	@GetMapping("/{userName}")
-	public User getUser(@PathVariable("userName") String userName){
-		return this.userService.getUserName(userName);
+	@GetMapping("/{username}")
+	public User getUser(@PathVariable("username") String username){
+		return this.userService.getUserName(username);
 	}
 
 	@DeleteMapping("/{id}")

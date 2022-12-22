@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService
 	@Override
 	public User createUser(User user, Set<UserRoles> userRoles) throws Exception
 	{
-		User local = userRepository.findByUserName(user.getUserName());
+		User local = userRepository.findByUsername(user.getUsername());
 		if(local!=null){
 			System.out.println("User is already there!!");
 			throw new Exception("user alredy present");
@@ -42,9 +42,9 @@ public class UserServiceImpl implements UserService
 
 	//getting user by username
 	@Override
-	public User getUserName(String userName)
+	public User getUserName(String username)
 	{
-		return userRepository.findByUserName(userName);
+		return userRepository.findByUsername(username);
 	}
 
 	//delete user by id
