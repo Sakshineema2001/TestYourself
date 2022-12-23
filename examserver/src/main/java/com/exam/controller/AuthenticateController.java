@@ -12,11 +12,16 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
+
 @RestController
+@CrossOrigin("*")
 public class AuthenticateController
 {
 	@Autowired
@@ -61,5 +66,11 @@ public class AuthenticateController
 		}catch (BadCredentialsException e){
 			throw new Exception("invalid credential" + e.getMessage());
 		}
+	}
+
+	//returns the details of current user
+	@GetMapping("/current-user")
+	public User  getCurrentDetails(Principal principal){
+         return (User) this.userDetailsService.loadUserByUsername(principal.getName());
 	}
 }

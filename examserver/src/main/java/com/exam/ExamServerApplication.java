@@ -32,7 +32,7 @@ public class ExamServerApplication implements CommandLineRunner
 //		user.setFirstName("sakshi");
 //		user.setLastName("Neema");
 //		user.setPassword("abcd");
-//		user.setUserName("sakshi2001");
+//		user.setUsername("sakshi2001");
 //		user.setEmail("sakshineema2000@gmail.com");
 //		user.setProfile("default.png");
 //
@@ -47,7 +47,7 @@ public class ExamServerApplication implements CommandLineRunner
 //
 //		userRolesSet.add(userRoles);
 //		User user1 = this.userService.createUser(user,userRolesSet);
-//		System.out.println(user1.getUserName());
+//		System.out.println(user1.getUsername());
 	}
 
 }
