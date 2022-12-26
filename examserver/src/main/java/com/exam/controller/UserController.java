@@ -5,6 +5,7 @@ import com.exam.model.User;
 import com.exam.model.UserRoles;
 import com.exam.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +27,14 @@ public class UserController
 	@Autowired
     private UserService userService;
 
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	@PostMapping("/")
 	public User createUser(@RequestBody User user) throws Exception
 	{
+
+		user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
 
 		Set<UserRoles> userRole = new HashSet<>();
 		Role role = new Role();
