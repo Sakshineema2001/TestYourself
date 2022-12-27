@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -23,9 +22,9 @@ public class Category
 	private Long cid;
 
 	private String title;
-	private String Description;
+	private String description;
 
-	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Quiz> quizzes = new LinkedHashSet<>();
 
@@ -37,7 +36,7 @@ public class Category
 	public Category(String title, String description)
 	{
 		this.title = title;
-		Description = description;
+		this.description = description;
 	}
 
 	public Long getCid()
@@ -62,11 +61,11 @@ public class Category
 
 	public String getDescription()
 	{
-		return Description;
+		return description;
 	}
 
 	public void setDescription(String description)
 	{
-		Description = description;
+		this.description = description;
 	}
 }

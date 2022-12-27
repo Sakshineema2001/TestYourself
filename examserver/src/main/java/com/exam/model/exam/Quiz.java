@@ -26,6 +26,16 @@ public class Quiz
 	private String numberOfQuestions;
 	private boolean active=false;
 
+	public Set<Questions> getQuestionsSet()
+	{
+		return questionsSet;
+	}
+
+	public void setQuestionsSet(Set<Questions> questionsSet)
+	{
+		this.questionsSet = questionsSet;
+	}
+
 	@OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Set<Questions> questionsSet = new HashSet<>();
@@ -47,10 +57,10 @@ public class Quiz
 	{
 	}
 
-	public Quiz(String title, String discription, String maxMarks, String numberOfQuestions, boolean active)
+	public Quiz(String title, String description, String maxMarks, String numberOfQuestions, boolean active)
 	{
 		this.title = title;
-		this.description = discription;
+		this.description = description;
 		this.maxMarks = maxMarks;
 		this.numberOfQuestions = numberOfQuestions;
 		this.active = active;
