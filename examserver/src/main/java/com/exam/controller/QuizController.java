@@ -1,5 +1,6 @@
 package com.exam.controller;
 
+import com.exam.model.exam.Category;
 import com.exam.model.exam.Quiz;
 import com.exam.services.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -48,5 +50,22 @@ public class QuizController
 	@DeleteMapping("/{qid}")
 	public void deletequiz(@PathVariable Long qid){
 		quizService.delete(qid);
+	}
+
+	@GetMapping("/category/{cid}")
+	public List<Quiz> getQuizByCategoryId(@PathVariable("cid") Long cid){
+		Category category = new Category();
+		category.setCid(cid);
+		return this.quizService.getQuizzesOfCategory(category);
+	}
+	@GetMapping("/active/category/{cid}")
+	public List<Quiz> getActiveQuizzesOfCategory(@PathVariable("cid") Long cid){
+		Category category = new Category();
+		category.setCid(cid);
+		return this.quizService.getActiveQuizzesOfCategory(category);
+	}
+	@GetMapping("/active-quiz")
+	public List<Quiz> getActiveQuiz(){
+		return this.quizService.getActiveQuiz();
 	}
 }
