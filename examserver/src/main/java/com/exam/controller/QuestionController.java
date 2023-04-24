@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -83,5 +85,29 @@ public class QuestionController
 				quiz.setQid(qid);
 				Set<Questions> questionsQuiz = this.questionsService.getQuestionOfQuiz(quiz);
 				return ResponseEntity.ok(questionsQuiz);
+	}
+
+	@PostMapping("/eval-quiz")
+	public ResponseEntity<?> EvalQuiz(@RequestBody List<Questions> questions){
+		double marksGot = 0 ;
+		int attempted = 0;
+		int correctAnswers = 0;
+		for (Questions q:questions){
+			Questions question = this.questionsService.getQues(q.getQuesId());
+			System.out.println("----------gg-" + question.toString());
+			System.out.println("----getAnswer------" + question.getAnswer().trim());
+			System.out.println("-----getGivenAnswers------" + q.getGivenAnswers().trim());
+			if(question.getAnswer().trim().equals(q.getGivenAnswers().trim())){
+               correctAnswers++;
+				double marksSingle = Double.parseDouble(questions.get(0).getQuiz().getMaxMarks()) / questions.size();
+				System.out.println("-----marksSingle-----------" + marksSingle);
+				marksGot += marksSingle;
+			}
+			if(q.getGivenAnswers() != null || !q.getGivenAnswers().trim().equals("") ){
+				attempted++;
+			}
+		}
+		Map<Object,Object>  map = Map.of("marksGot",marksGot,"correctAnswers",correctAnswers,"attempted",attempted);
+		return ResponseEntity.ok(map);
 	}
 }

@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Questions
@@ -23,6 +24,19 @@ public class Questions
 	private String option2;
 	private String option3;
 	private String option4;
+
+	public String getGivenAnswers()
+	{
+		return givenAnswers;
+	}
+
+	public void setGivenAnswers(String givenAnswers)
+	{
+		this.givenAnswers = givenAnswers;
+	}
+
+	@Transient
+	private String givenAnswers;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Quiz quiz;
